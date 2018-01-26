@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DemoMVC5Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="DemoMVC5Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Access" EntityType="DemoMVC5Model.Access" />
+    <EntitySet Name="Action" EntityType="DemoMVC5Model.Action" />
+    <EntitySet Name="Product" EntityType="DemoMVC5Model.Product" />
+    <EntitySet Name="Service" EntityType="DemoMVC5Model.Service" />
+    <EntitySet Name="User" EntityType="DemoMVC5Model.User" />
+    <AssociationSet Name="FK__Access__Action__239E4DCF" Association="DemoMVC5Model.FK__Access__Action__239E4DCF">
+      <End Role="Action" EntitySet="Action" />
+      <End Role="Access" EntitySet="Access" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Access__Service__24927208" Association="DemoMVC5Model.FK__Access__Service__24927208">
+      <End Role="Service" EntitySet="Service" />
+      <End Role="Access" EntitySet="Access" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Access__User__22AA2996" Association="DemoMVC5Model.FK__Access__User__22AA2996">
+      <End Role="User" EntitySet="User" />
+      <End Role="Access" EntitySet="Access" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__Modifie__164452B1" Association="DemoMVC5Model.FK__Product__Modifie__164452B1">
+      <End Role="User" EntitySet="User" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Access">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="User" Type="Int32" Nullable="false" />
+    <Property Name="Action" Type="Int32" Nullable="false" />
+    <Property Name="Service" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Action1" Relationship="DemoMVC5Model.FK__Access__Action__239E4DCF" FromRole="Access" ToRole="Action" />
+    <NavigationProperty Name="Service1" Relationship="DemoMVC5Model.FK__Access__Service__24927208" FromRole="Access" ToRole="Service" />
+    <NavigationProperty Name="User1" Relationship="DemoMVC5Model.FK__Access__User__22AA2996" FromRole="Access" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Action">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Access" Relationship="DemoMVC5Model.FK__Access__Action__239E4DCF" FromRole="Action" ToRole="Access" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Count" Type="Int32" Nullable="false" />
+    <Property Name="Modified" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="DemoMVC5Model.FK__Product__Modifie__164452B1" FromRole="Product" ToRole="User" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Access" Relationship="DemoMVC5Model.FK__Access__Service__24927208" FromRole="Service" ToRole="Access" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FIO" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Modified" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Access" Relationship="DemoMVC5Model.FK__Access__User__22AA2996" FromRole="User" ToRole="Access" />
+    <NavigationProperty Name="Product" Relationship="DemoMVC5Model.FK__Product__Modifie__164452B1" FromRole="User" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK__Access__Action__239E4DCF">
+    <End Type="DemoMVC5Model.Action" Role="Action" Multiplicity="1" />
+    <End Type="DemoMVC5Model.Access" Role="Access" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Action">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Access">
+        <PropertyRef Name="Action" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Access__Service__24927208">
+    <End Type="DemoMVC5Model.Service" Role="Service" Multiplicity="1" />
+    <End Type="DemoMVC5Model.Access" Role="Access" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Access">
+        <PropertyRef Name="Service" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Access__User__22AA2996">
+    <End Type="DemoMVC5Model.User" Role="User" Multiplicity="1" />
+    <End Type="DemoMVC5Model.Access" Role="Access" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Access">
+        <PropertyRef Name="User" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__Modifie__164452B1">
+    <End Type="DemoMVC5Model.User" Role="User" Multiplicity="1" />
+    <End Type="DemoMVC5Model.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

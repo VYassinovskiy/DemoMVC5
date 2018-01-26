@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DemoMVC5Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Access">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User" Type="int" Nullable="false" />
+    <Property Name="Action" Type="int" Nullable="false" />
+    <Property Name="Service" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Action">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="Count" Type="int" Nullable="false" />
+    <Property Name="Modified" Type="date" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FIO" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Modified" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Access__Action__239E4DCF">
+    <End Role="Action" Type="Self.Action" Multiplicity="1" />
+    <End Role="Access" Type="Self.Access" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Action">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Access">
+        <PropertyRef Name="Action" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Access__Service__24927208">
+    <End Role="Service" Type="Self.Service" Multiplicity="1" />
+    <End Role="Access" Type="Self.Access" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Access">
+        <PropertyRef Name="Service" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Access__User__22AA2996">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Access" Type="Self.Access" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Access">
+        <PropertyRef Name="User" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Product__Modifie__164452B1">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ModifiedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DemoMVC5ModelStoreContainer">
+    <EntitySet Name="Access" EntityType="Self.Access" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Action" EntityType="Self.Action" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Access__Action__239E4DCF" Association="Self.FK__Access__Action__239E4DCF">
+      <End Role="Action" EntitySet="Action" />
+      <End Role="Access" EntitySet="Access" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Access__Service__24927208" Association="Self.FK__Access__Service__24927208">
+      <End Role="Service" EntitySet="Service" />
+      <End Role="Access" EntitySet="Access" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Access__User__22AA2996" Association="Self.FK__Access__User__22AA2996">
+      <End Role="User" EntitySet="User" />
+      <End Role="Access" EntitySet="Access" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Product__Modifie__164452B1" Association="Self.FK__Product__Modifie__164452B1">
+      <End Role="User" EntitySet="User" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

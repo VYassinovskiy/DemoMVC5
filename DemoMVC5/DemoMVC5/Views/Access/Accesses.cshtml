@@ -1,0 +1,58 @@
+﻿@model IEnumerable<DemoMVC5.Models.ViewModel.AccessesModel>
+
+@{
+    ViewBag.Title = "Список доступов";
+}
+
+<h2>Список доступов</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Пользователь
+        </th>
+        <th>
+            Сервис
+        </th>
+        <th>
+            Создание
+        </th>
+        <th>
+            Чтение
+        </th>
+        <th>
+            Изменение
+        </th>
+        <th>
+            Удаление
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User, "Пользователь")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service, "Сервис")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Create, "Создание")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Read, "Чтение")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Update, "Изменение")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Delete, "Удаление")
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.UserId, service=item.ServiceId }) 
+        </td>
+    </tr>
+}
+
+</table>
